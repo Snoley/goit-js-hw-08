@@ -6,23 +6,23 @@ import { galleryItems } from './gallery-items.js';
 
 console.log(galleryItems);
 
-const list = document.querySelector(`.gallery`);
-galleryMarkup();
+const gallery = document.querySelector(`.gallery`);
+makeMarkupForGallary();
 
-function galleryMarkup() {
-  const markup = galleryItems.reduce((acc, {
-    preview,
-    original,
-    description
-}) => acc + `<div class="gallery__item">
-    <a class="gallery__link" href="${original}">
-    <img
-        class="gallery__image"
-        src="${preview}"
-        alt="${description}"
-        data-source="${original}"
-    />
-</a>
-</div>`,"");
-  list.insertAdjacentHTML("beforeend", markup);
+function makeMarkupForGallary() {
+  const markup = galleryItems.reduce(
+    (acc, { preview, original, description }) =>
+      acc +
+      `<a class="gallery__item" href="${original}">
+            <img class="gallery__image" src="${preview}" alt="${description}" />
+                </a>`,
+    ''
+  );
+  gallery.insertAdjacentHTML('beforeend', markup);
 }
+
+new SimpleLightbox('.gallery .gallery__item', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  disableRightClick: true,
+});
